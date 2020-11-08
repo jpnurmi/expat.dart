@@ -1,22 +1,30 @@
-A library for Dart developers.
+# Expat for Dart
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+[![license: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Dart FFI bindings to a stream-oriented XML parser library written in C.
+
+[Expat](https://libexpat.github.io/) excels with files too large to fit RAM,
+and where performance and flexibility are crucial.
 
 ## Usage
 
-A simple usage example:
-
 ```dart
-import 'package:dart_expat/dart_expat.dart';
+import 'package:expat/expat.dart';
 
 main() {
-  var awesome = new Awesome();
+  var parser = XmlParser(
+    onStartElement: (String element, List<String> attributes) {
+      print('onStartElement $element')
+    },
+    onCharacterData: (String data) {
+      print('onCharacterData $data');
+    },
+    onEndElement: (String element) {
+      print('onEndElement $element');
+    },
+  );
+  parser.parse(xml: '<foo>bar</foo>');
+  parser.dispose();
 }
 ```
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: http://example.com/issues/replaceme
